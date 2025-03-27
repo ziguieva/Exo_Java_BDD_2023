@@ -33,16 +33,6 @@ class MyClass {
     out.println("Valeur de x : " + tache.name);
 %>
 
-<%-- Boucle for pour afficher une ligne d'étoiles --%>
-    <%int cpt = Integer.parseInt(valeur); %>
-    <p>
-    <% for (int i = 1; i <= cpt; i++) { %>
-       <%= "*" %>
-    <% } %>
-    </p>
-
-
-
 
 <% } %>
 </body>
