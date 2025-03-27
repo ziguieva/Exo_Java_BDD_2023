@@ -1,17 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-class MyClass {
-  int x = 5;
-}
 
-public class Main {
-  public static void main(String[] args) {
-    MyClass myObj = new MyClass();
-    System.out.println(myObj.x);
-    System.out.println(myObj.x);
-  }
+<%! 
+class MyClass {
+    int x = 5;
 }
 %>
+
+<%
+    MyClass myObj = new MyClass();
+    out.println("Valeur de x : " + myObj.x);
+%>
+
 <html>
 <head>
 <title>Taches</title>
