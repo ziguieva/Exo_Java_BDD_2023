@@ -1,15 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%! 
-class MyClass {
-    int x = 5;
-}
-%>
-
-<%
-    MyClass myObj = new MyClass();
-    out.println("Valeur de x : " + myObj.x);
-%>
 
 <html>
 <head>
@@ -28,6 +18,20 @@ class MyClass {
     
 <%-- Vérification de l'existence de la valeur --%>
 <% if (valeur != null && !valeur.isEmpty()) { %>
+
+<%! 
+class MyClass {
+    String nameTache;
+
+  public MyClass(String name) {
+    nameTache = name;
+}
+%>
+
+<%
+    MyClass tache = new MyClass(valeur);
+    out.println("Valeur de x : " + tache.name);
+%>
 
 <%-- Boucle for pour afficher une ligne d'étoiles --%>
     <%int cpt = Integer.parseInt(valeur); %>
