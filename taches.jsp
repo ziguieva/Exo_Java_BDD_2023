@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <html>
 <head>
 <title>Taches</title>
@@ -13,27 +12,27 @@
     <input type="submit" value="Enregistrer">
 </form>
 
-<%-- Récupération de la valeur saisie par l'utilisateur --%>
-<% String valeur = request.getParameter("valeur"); %>
-    
-<%-- Vérification de l'existence de la valeur --%>
-<% if (valeur != null && !valeur.isEmpty()) { %>
-
 <%! 
-class MyClass {
-    String nameTache;
+    class MyClass {
+        String nameTache;
 
-  public MyClass(String name) {
-    nameTache = name;
-}
+        public MyClass(String name) {
+            nameTache = name;
+        }
+    }
 %>
 
+<%-- Récupération de la valeur saisie par utilisateur --%>
 <%
-    MyClass tache = new MyClass(valeur);
-    out.println("Valeur de x : " + tache.name);
+    String valeur = request.getParameter("valeur");
+
+    if (valeur != null && !valeur.isEmpty()) {
+        MyClass tache = new MyClass(valeur);
+%>
+        <p>Valeur de la tâche : <%= tache.nameTache %></p>
+<%
+    }
 %>
 
-
-<% } %>
 </body>
 </html>
