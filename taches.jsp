@@ -7,7 +7,7 @@
 <body bgcolor=white>
 <h1>Saisir une tache</h1>
 <form action="#" method="post">
-    <label for="inputValeur">Saisir une tache : </label>
+    <label for="inputValeur">Saisir le nom d'une tache : </label>
     <input type="text" id="inputValeur" name="valeur">
     <input type="submit" value="Enregistrer">
 </form>
@@ -22,14 +22,13 @@
     }
 %>
 
-<%-- Récupération de la valeur saisie par utilisateur --%>
 <%
     String valeur = request.getParameter("valeur");
 
     if (valeur != null && !valeur.isEmpty()) {
         MyClass tache = new MyClass(valeur);
 %>
-        <p>Valeur de la tâche : <%= tache.nameTache %></p>
+        <p>Nom de la tâche : <%= tache.nameTache %></p>
 <%
     }
 %>
