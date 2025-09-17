@@ -17,9 +17,10 @@
     <%-- Division de la chaîne de chiffres séparés par des espaces --%>
     <% String[] tableauDeChiffres = chaine.split("\\s+"); %>
     <p>La tableau contient <%= tableauDeChiffres.length %> valeurs</br>
-    Chiffre 1 : <%= Integer.parseInt(tableauDeChiffres[0]) %></br>
-    Chiffre 2 : <%= Integer.parseInt(tableauDeChiffres[1]) %></br>
-    Chiffre 3 : <%= Integer.parseInt(tableauDeChiffres[2]) %></p>
+    <% if(tableauDeChiffres.length>=1){ %>Chiffre 1 : <%= Integer.parseInt(tableauDeChiffres[0]) %></br><% } %>
+    <% if(tableauDeChiffres.length>=2){ %>Chiffre 2 : <%= Integer.parseInt(tableauDeChiffres[1]) %></br><% } %>
+    <% if(tableauDeChiffres.length>=3){ %>Chiffre 3 : <%= Integer.parseInt(tableauDeChiffres[2]) %></br><% } %>
+    </p>
     
 <h2>Exercice 1 : La carré de la première valeur</h2>
 <p>Ecrire un programme afin d'afficher le carré de la première valeur</p>
@@ -62,9 +63,9 @@ Ecrire un programme afin de faire la somme de toutes les valeurs saisie par l'ut
 <% int proche2=Integer.parseInt(tableauDeChiffres[0]);
    for(String s:tableauDeChiffres){
        int v=Integer.parseInt(s);
-       if(Math.abs(v)<Math.abs(proche) || (Math.abs(v)==Math.abs(proche)&&v>proche)) proche=v;
+       if(Math.abs(v)<Math.abs(proche2) || (Math.abs(v)==Math.abs(proche2)&&v>proche2)) proche2=v;
    } %>
-<p>Valeur la plus proche de 0 (positif prioritaire) : <%= proche %></p>
+<p>Valeur la plus proche de 0 (positif prioritaire) : <%= proche2 %></p>
 
 <% } %>
 <p><a href="index.html">Retour au sommaire</a></p>
