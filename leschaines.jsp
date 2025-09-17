@@ -34,6 +34,8 @@
     
 <h2>Exercice 1 : Combien de 'e' dans notre chaine de charactère ?</h2>
 <p>Ecrire un programme pour compter le nombre de lettre e dans votre chaine de charactères</p>
+<% int nbE=0;for(int i=0;i<chaine.length();i++){if(chaine.charAt(i)=='e')nbE++;} %>
+<p>Il y a <%= nbE %> 'e' dans votre chaine</p>
 
 <h2>Exercice 2 : Affichage verticale</h2>
 <p>Ecrire le programme pour afficher le texte en vertical</br>
@@ -45,6 +47,8 @@ j</br>
 o</br>
 u</br>
 r</p>
+<p><% for(int i=0;i<chaine.length();i++){ %><%= chaine.charAt(i) %></br><% } %></p>
+
 
 <h2>Exercice 3 : Retour à la ligne</h2>
 <p>La présence d'un espace provoque un retour à la ligne </br>
