@@ -59,7 +59,7 @@ Ecrire un programme afin de faire la somme de toutes les valeurs saisie par l'ut
 <h2>Exercice 7 : La valeur le plus proche de 0 (2° version)</h2>
 <p>Trouvez la valeur la plus proche de 0 (chiffres positifs ou négatifs)</p>
 <p>En cas d'égalité entre un chiffre positif et négatif, affichez le chiffre positif</p>
-<% int proche=Integer.parseInt(tableauDeChiffres[0]);
+<% int proche2=Integer.parseInt(tableauDeChiffres[0]);
    for(String s:tableauDeChiffres){
        int v=Integer.parseInt(s);
        if(Math.abs(v)<Math.abs(proche) || (Math.abs(v)==Math.abs(proche)&&v>proche)) proche=v;
