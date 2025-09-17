@@ -32,22 +32,23 @@
     
 <h2>Exercice 1 : Comparaison 1</h2>
 <p>Ecrire un programme qui demande à l'utilisateur de saisir 3 valeurs (des chiffres),</br>
-A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
-Exemple :</br>
-A = 10</br>
-B = 20</br>
-C = 15</br>
-Oui C est compris entre A et B</p>
-<% int A=Integer.parseInt(request.getParameter("A"));int B=Integer.parseInt(request.getParameter("B"));int C=Integer.parseInt(request.getParameter("C")); %>
-<p><%= (C>=Math.min(A,B) && C<=Math.max(A,B))?"Oui C est compris entre A et B":"Non C n'est pas compris entre A et B" %></p>
+A, B et C et dites nous si la valeur de C est comprise entre A et B.</p>
 
+<% String sa=request.getParameter("A"), sb=request.getParameter("B"), sc=request.getParameter("C"); 
+   if(sa!=null && sb!=null && sc!=null){ 
+       int A=Integer.parseInt(sa), B=Integer.parseInt(sb), C=Integer.parseInt(sc); %>
+       <p><%= (C>=Math.min(A,B) && C<=Math.max(A,B))?"Oui C est compris entre A et B":"Non C n'est pas compris entre A et B" %></p>
+<% } %>
 
 <h2>Exercice 2 : Pair ou Impair ?</h2>
 <p>Écrivez un programme pour vérifier si un nombre est pair ou impair en utilisant une structure if</p>
-<% int n=Integer.parseInt(request.getParameter("n")); %>
-<p><%= (n%2==0)?"Le nombre est pair":"Le nombre est impair" %></p>
 
+<% String sn=request.getParameter("n"); 
+   if(sn!=null){ 
+       int n=Integer.parseInt(sn); %>
+       <p><%= (n%2==0)?"Le nombre est pair":"Le nombre est impair" %></p>
 <% } %>
+
 <p><a href="index.html">Retour au sommaire</a></p>
 </body>
 </html>
