@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Projet JSP - Mini Gestionnaire de Tâches</h1>
-    <p>Si tu vois ce message, ta configuration fonctionne ✅</p>
+    <p>la configuration fonctionne ✅</p>
 </body>
 </html>
 
