@@ -77,6 +77,25 @@
             margin-bottom: 30px;
         }
 
+        .retour {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .btn-retour {
+            background: #ccc;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-retour:hover {
+            background: #999;
+        }
+
         form {
             background: white;
             padding: 20px;
@@ -126,34 +145,21 @@
             color: white;
         }
 
-        tr:hover {
-            background: #f1f9ff;
-        }
-
-        .terminee {
-            text-decoration: line-through;
-            color: #777;
-        }
-
-        a {
-            color: #0078D7;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .etat {
-            font-weight: bold;
-        }
-
+        tr:hover { background: #f1f9ff; }
+        .terminee { text-decoration: line-through; color: #777; }
+        a { color: #0078D7; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .etat { font-weight: bold; }
         .etat.enCours { color: #e67e22; }
         .etat.terminee { color: #27ae60; }
     </style>
 </head>
 <body>
+
+    <!-- 🏠 Bouton de retour -->
+    <div class="retour">
+        <button class="btn-retour" onclick="window.location.href='index.html'">⬅ Retour à l’accueil</button>
+    </div>
 
     <h1>📝 Mini Gestionnaire de Tâches</h1>
 
