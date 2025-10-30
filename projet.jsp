@@ -1,14 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 
 <%
-    // Classe interne représentant une Tâche
+    // Partie 1 : Code Java
     class Task {
         private String titre;
         private String description;
         private String dateEcheance;
         private boolean terminee;
 
-        // Constructeur
         public Task(String titre, String description, String dateEcheance) {
             this.titre = titre;
             this.description = description;
@@ -16,34 +15,44 @@
             this.terminee = false;
         }
 
-        // Getters
         public String getTitre() { return titre; }
         public String getDescription() { return description; }
         public String getDateEcheance() { return dateEcheance; }
         public boolean isTerminee() { return terminee; }
-
-        // Setter
         public void setTerminee(boolean t) { this.terminee = t; }
     }
 
-    // Récupération ou création de la liste de tâches dans la session
-    HttpSession maSession = request.getSession();
-    ArrayList<Task> listeTaches = (ArrayList<Task>) maSession.getAttribute("taches");
-
+    HttpSession sessionTaches = request.getSession();
+    ArrayList<Task> listeTaches = (ArrayList<Task>) sessionTaches.getAttribute("taches");
     if (listeTaches == null) {
         listeTaches = new ArrayList<Task>();
-        maSession.setAttribute("taches", listeTaches);
+        sessionTaches.setAttribute("taches", listeTaches);
     }
 
+    // --- Ajout d'une tâche ---
     if (request.getParameter("ajouter") != null) {
         String titre = request.getParameter("titre");
         String description = request.getParameter("description");
         String date = request.getParameter("date");
 
         if (titre != null && !titre.trim().isEmpty()) {
-            Task nouvelle = new Task(titre, description, date);
-            listeTaches.add(nouvelle);
-            maSession.setAttribute("taches", listeTaches);
+            listeTaches.add(new Task(titre, description, date));
+        }
+    }
+
+    // --- Marquer une tâche comme terminée ---
+    if (request.getParameter("done") != null) {
+        int index = Integer.parseInt(request.getParameter("done"));
+        if (index >= 0 && index < listeTaches.size()) {
+            listeTaches.get(index).setTerminee(true);
+        }
+    }
+
+    // --- Supprimer une tâche ---
+    if (request.getParameter("delete") != null) {
+        int index = Integer.parseInt(request.getParameter("delete"));
+        if (index >= 0 && index < listeTaches.size()) {
+            listeTaches.remove(index);
         }
     }
 %>
@@ -52,12 +61,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Projet JSP - Mini Gestionnaire de Tâches</title>
+    <title>Mini Gestionnaire de Tâches</title>
 </head>
 <body>
-    <h1>Projet JSP - Mini Gestionnaire de Tâches</h1>
+    <h1>Mini Gestionnaire de Tâches</h1>
 
-    <!-- ✅ Formulaire pour ajouter une tâche -->
+    <!-- Formulaire d’ajout -->
     <form method="post">
         <label>Titre :</label><br>
         <input type="text" name="titre" required><br><br>
@@ -73,9 +82,35 @@
 
     <hr>
 
-    <%
-        // ✅ Affichage du nombre de tâches pour test
-        out.println("<p>Nombre de tâches en session : " + listeTaches.size() + "</p>");
-    %>
+    <h2>Liste des tâches</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>État</th>
+            <th>Actions</th>
+        </tr>
+
+        <%
+            for (int i = 0; i < listeTaches.size(); i++) {
+                Task t = listeTaches.get(i);
+        %>
+        <tr>
+            <td><%= i %></td>
+            <td><%= t.getTitre() %></td>
+            <td><%= t.getDescription() %></td>
+            <td><%= t.getDateEcheance() %></td>
+            <td><%= t.isTerminee() ? "Terminée ✅" : "En cours ⏳" %></td>
+            <td>
+                <% if (!t.isTerminee()) { %>
+                    <a href="?done=<%= i %>">Terminer</a> |
+                <% } %>
+                <a href="?delete=<%= i %>">Supprimer</a>
+            </td>
+        </tr>
+        <% } %>
+    </table>
 </body>
 </html>
