@@ -62,28 +62,118 @@
 <head>
     <meta charset="UTF-8">
     <title>Mini Gestionnaire de Tâches</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7fa;
+            margin: 40px auto;
+            max-width: 800px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0078D7;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        input[type=text],
+        input[type=date],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        input[type=submit] {
+            background: #0078D7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background: #005fa3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0078D7;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f9ff;
+        }
+
+        .terminee {
+            text-decoration: line-through;
+            color: #777;
+        }
+
+        a {
+            color: #0078D7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .etat {
+            font-weight: bold;
+        }
+
+        .etat.enCours { color: #e67e22; }
+        .etat.terminee { color: #27ae60; }
+    </style>
 </head>
 <body>
-    <h1>Mini Gestionnaire de Tâches</h1>
+
+    <h1>📝 Mini Gestionnaire de Tâches</h1>
 
     <!-- Formulaire d’ajout -->
     <form method="post">
-        <label>Titre :</label><br>
-        <input type="text" name="titre" required><br><br>
+        <label><b>Titre :</b></label>
+        <input type="text" name="titre" required>
 
-        <label>Description :</label><br>
-        <textarea name="description" rows="3" cols="40"></textarea><br><br>
+        <label><b>Description :</b></label>
+        <textarea name="description" rows="3"></textarea>
 
-        <label>Date d’échéance :</label><br>
-        <input type="date" name="date"><br><br>
+        <label><b>Date d’échéance :</b></label>
+        <input type="date" name="date">
 
-        <input type="submit" name="ajouter" value="Ajouter la tâche">
+        <input type="submit" name="ajouter" value="➕ Ajouter la tâche">
     </form>
 
-    <hr>
+    <h2>📋 Liste des Tâches</h2>
 
-    <h2>Liste des tâches</h2>
-    <table border="1" cellpadding="6" cellspacing="0">
+    <table>
         <tr>
             <th>#</th>
             <th>Titre</th>
@@ -98,19 +188,22 @@
                 Task t = listeTaches.get(i);
         %>
         <tr>
-            <td><%= i %></td>
-            <td><%= t.getTitre() %></td>
-            <td><%= t.getDescription() %></td>
+            <td><%= i + 1 %></td>
+            <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getTitre() %></td>
+            <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getDescription() %></td>
             <td><%= t.getDateEcheance() %></td>
-            <td><%= t.isTerminee() ? "Terminée ✅" : "En cours ⏳" %></td>
+            <td class="etat <%= t.isTerminee() ? "terminee" : "enCours" %>">
+                <%= t.isTerminee() ? "Terminée ✅" : "En cours ⏳" %>
+            </td>
             <td>
                 <% if (!t.isTerminee()) { %>
                     <a href="?done=<%= i %>">Terminer</a> |
                 <% } %>
-                <a href="?delete=<%= i %>">Supprimer</a>
+                <a href="?delete=<%= i %>" style="color:red;">Supprimer</a>
             </td>
         </tr>
         <% } %>
     </table>
+
 </body>
 </html>
