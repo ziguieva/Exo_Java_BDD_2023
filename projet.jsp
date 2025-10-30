@@ -26,16 +26,26 @@
         public void setTerminee(boolean t) { this.terminee = t; }
     }
 
-    // Récupération de la liste de tâches depuis la session
+    // Récupération ou création de la liste de tâches dans la session
     HttpSession maSession = request.getSession();
     ArrayList<Task> listeTaches = (ArrayList<Task>) maSession.getAttribute("taches");
 
-    // Si la liste n'existe pas encore, on la crée
     if (listeTaches == null) {
         listeTaches = new ArrayList<Task>();
         maSession.setAttribute("taches", listeTaches);
     }
 
+    if (request.getParameter("ajouter") != null) {
+        String titre = request.getParameter("titre");
+        String description = request.getParameter("description");
+        String date = request.getParameter("date");
+
+        if (titre != null && !titre.trim().isEmpty()) {
+            Task nouvelle = new Task(titre, description, date);
+            listeTaches.add(nouvelle);
+            maSession.setAttribute("taches", listeTaches);
+        }
+    }
 %>
 
 <!DOCTYPE html>
@@ -46,10 +56,25 @@
 </head>
 <body>
     <h1>Projet JSP - Mini Gestionnaire de Tâches</h1>
-    <p>✅ Test de la session et de la classe Task réussi (si rien ne plante, tout va bien)</p>
+
+    <!-- ✅ Formulaire pour ajouter une tâche -->
+    <form method="post">
+        <label>Titre :</label><br>
+        <input type="text" name="titre" required><br><br>
+
+        <label>Description :</label><br>
+        <textarea name="description" rows="3" cols="40"></textarea><br><br>
+
+        <label>Date d’échéance :</label><br>
+        <input type="date" name="date"><br><br>
+
+        <input type="submit" name="ajouter" value="Ajouter la tâche">
+    </form>
+
+    <hr>
 
     <%
-        // Petit test : on affiche combien de tâches il y a dans la session
+        // ✅ Affichage du nombre de tâches pour test
         out.println("<p>Nombre de tâches en session : " + listeTaches.size() + "</p>");
     %>
 </body>
