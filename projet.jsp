@@ -271,4 +271,28 @@
             %>
             <tr>
                 <td><%= i + 1 %></td>
-                <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.get
+                <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getTitre() %></td>
+                <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getDescription() %></td>
+                <td><%= formatDateFR(t.getDateEcheance()) %></td>
+                <td>
+                    <span class="etat <%= t.isTerminee() ? "terminee" : "enCours" %>">
+                        <%= t.isTerminee() ? "Terminée" : "En cours" %>
+                    </span>
+                </td>
+                <td>
+                    <% if (!t.isTerminee()) { %>
+                        <a href="?done=<%= i %>">Terminer</a> |
+                    <% } %>
+                    <a href="?delete=<%= i %>" style="color:red;" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </main>
+
+    <footer>
+        <p>Projet JSP - Gestionnaire de Tâches | Réalisé par Evan © 2025</p>
+    </footer>
+
+</body>
+</html>
