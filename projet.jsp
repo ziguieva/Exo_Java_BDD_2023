@@ -1,21 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Projet JSP - Mini Gestionnaire de Tâches</title>
-</head>
-<body>
-    <h1>Projet JSP - Mini Gestionnaire de Tâches</h1>
-    <p>✅ Test de la session et de la classe task réussi (si rien ne plante, tout va bien)</p>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 
-    <%
-        // Petit test : on affiche combien de tâches il y a dans la session
-        out.println("<p>Nombre de tâches en session : " + listeTaches.size() + "</p>");
-    %>
-</body>
-</html>
 <%
+    // Classe interne représentant une Tâche
     class Task {
         private String titre;
         private String description;
@@ -51,3 +37,20 @@
     }
 
 %>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projet JSP - Mini Gestionnaire de Tâches</title>
+</head>
+<body>
+    <h1>Projet JSP - Mini Gestionnaire de Tâches</h1>
+    <p>✅ Test de la session et de la classe Task réussi (si rien ne plante, tout va bien)</p>
+
+    <%
+        // Petit test : on affiche combien de tâches il y a dans la session
+        out.println("<p>Nombre de tâches en session : " + listeTaches.size() + "</p>");
+    %>
+</body>
+</html>
