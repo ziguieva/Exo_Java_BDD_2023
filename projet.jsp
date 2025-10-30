@@ -1,7 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, java.text.*" %>
 
 <%
-    // Partie 1 : Code Java
+    // Partie 1 : Logique Java
     class Task {
         private String titre;
         private String description;
@@ -55,6 +55,16 @@
             listeTaches.remove(index);
         }
     }
+
+    // --- Fonction utilitaire pour formater la date ---
+    String formatDateFR(String date) {
+        try {
+            Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            return new SimpleDateFormat("dd-MM-yyyy").format(d);
+        } catch (Exception e) {
+            return date;
+        }
+    }
 %>
 
 <!DOCTYPE html>
@@ -64,152 +74,201 @@
     <title>Mini Gestionnaire de Tâches</title>
     <style>
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f7fa;
-            margin: 40px auto;
-            max-width: 800px;
-            color: #333;
+            font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+            background: #f2f5f9;
+            margin: 0;
+            padding: 0;
+            color: #222;
         }
 
-        h1 {
-            text-align: center;
-            color: #0078D7;
-            margin-bottom: 30px;
+        header {
+            background-color: #0b63ce;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .retour {
-            text-align: left;
-            margin-bottom: 20px;
+        header h1 {
+            font-size: 24px;
+            margin: 0;
         }
 
         .btn-retour {
-            background: #ccc;
-            color: #333;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
+            background-color: white;
+            color: #0b63ce;
+            border: 1px solid #0b63ce;
+            padding: 8px 16px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
         }
 
         .btn-retour:hover {
-            background: #999;
+            background-color: #eaf1fc;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid #0b63ce;
+            padding-bottom: 10px;
+            color: #0b63ce;
         }
 
         form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
         }
 
         input[type=text],
         input[type=date],
         textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            transition: border 0.2s ease-in-out;
+        }
+
+        input[type=text]:focus,
+        input[type=date]:focus,
+        textarea:focus {
+            border-color: #0b63ce;
+            outline: none;
         }
 
         input[type=submit] {
-            background: #0078D7;
+            margin-top: 15px;
+            background: #0b63ce;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
             cursor: pointer;
+            transition: background 0.3s ease-in-out;
         }
 
         input[type=submit]:hover {
-            background: #005fa3;
+            background: #094fa5;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
+            margin-top: 10px;
         }
 
         th {
-            background-color: #0078D7;
+            background-color: #0b63ce;
             color: white;
+            padding: 10px;
+            text-align: left;
         }
 
-        tr:hover { background: #f1f9ff; }
-        .terminee { text-decoration: line-through; color: #777; }
-        a { color: #0078D7; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        .etat { font-weight: bold; }
-        .etat.enCours { color: #e67e22; }
-        .etat.terminee { color: #27ae60; }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9fcff;
+        }
+
+        .terminee {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        a {
+            color: #0b63ce;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .etat {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .etat.enCours {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .etat.terminee {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            padding: 15px;
+            color: #777;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 🏠 Bouton de retour -->
-    <div class="retour">
-        <button class="btn-retour" onclick="window.location.href='index.html'">⬅ Retour à l’accueil</button>
-    </div>
+    <header>
+        <h1>Mini Gestionnaire de Tâches</h1>
+        <button class="btn-retour" onclick="window.location.href='index.html'">Retour à l’accueil</button>
+    </header>
 
-    <h1>📝 Mini Gestionnaire de Tâches</h1>
+    <main>
+        <h2>Ajouter une nouvelle tâche</h2>
 
-    <!-- Formulaire d’ajout -->
-    <form method="post">
-        <label><b>Titre :</b></label>
-        <input type="text" name="titre" required>
+        <form method="post">
+            <label>Titre :</label>
+            <input type="text" name="titre" required>
 
-        <label><b>Description :</b></label>
-        <textarea name="description" rows="3"></textarea>
+            <label>Description :</label>
+            <textarea name="description" rows="3"></textarea>
 
-        <label><b>Date d’échéance :</b></label>
-        <input type="date" name="date">
+            <label>Date d’échéance :</label>
+            <input type="date" name="date">
 
-        <input type="submit" name="ajouter" value="➕ Ajouter la tâche">
-    </form>
+            <input type="submit" name="ajouter" value="Ajouter la tâche">
+        </form>
 
-    <h2>📋 Liste des Tâches</h2>
+        <h2>Liste des tâches</h2>
 
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Titre</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>État</th>
-            <th>Actions</th>
-        </tr>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>État</th>
+                <th>Actions</th>
+            </tr>
 
-        <%
-            for (int i = 0; i < listeTaches.size(); i++) {
-                Task t = listeTaches.get(i);
-        %>
-        <tr>
-            <td><%= i + 1 %></td>
-            <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getTitre() %></td>
-            <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.getDescription() %></td>
-            <td><%= t.getDateEcheance() %></td>
-            <td class="etat <%= t.isTerminee() ? "terminee" : "enCours" %>">
-                <%= t.isTerminee() ? "Terminée ✅" : "En cours ⏳" %>
-            </td>
-            <td>
-                <% if (!t.isTerminee()) { %>
-                    <a href="?done=<%= i %>">Terminer</a> |
-                <% } %>
-                <a href="?delete=<%= i %>" style="color:red;">Supprimer</a>
-            </td>
-        </tr>
-        <% } %>
-    </table>
-
-</body>
-</html>
+            <%
+                for (int i = 0; i < listeTaches.size(); i++) {
+                    Task t = listeTaches.get(i);
+            %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td class="<%= t.isTerminee() ? "terminee" : "" %>"><%= t.get
