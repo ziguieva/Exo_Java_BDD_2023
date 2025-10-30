@@ -55,9 +55,9 @@
             listeTaches.remove(index);
         }
     }
-
-    // --- Fonction utilitaire pour formater la date ---
-    String formatDateFR(String date) {
+    <%!
+    // --- Fonction utilitaire pour formater la date (déclarée au niveau de la page) ---
+    public String formatDateFR(String date) {
         try {
             Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
             return new SimpleDateFormat("dd-MM-yyyy").format(d);
@@ -65,7 +65,7 @@
             return date;
         }
     }
-%>
+    %>
 
 <!DOCTYPE html>
 <html lang="fr">
