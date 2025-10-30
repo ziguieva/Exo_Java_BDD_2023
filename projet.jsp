@@ -55,7 +55,9 @@
             listeTaches.remove(index);
         }
     }
-    <%!
+%>
+
+<%!
     // --- Fonction utilitaire pour formater la date (déclarée au niveau de la page) ---
     public String formatDateFR(String date) {
         try {
@@ -65,7 +67,7 @@
             return date;
         }
     }
-    %>
+%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -104,6 +106,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s;
         }
 
         .btn-retour:hover {
@@ -123,6 +126,8 @@
             border-bottom: 2px solid #0b63ce;
             padding-bottom: 10px;
             color: #0b63ce;
+            font-size: 20px;
+            margin-top: 0;
         }
 
         form {
@@ -161,6 +166,7 @@
             padding: 10px 20px;
             border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
             transition: background 0.3s ease-in-out;
         }
 
@@ -172,6 +178,8 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            border-radius: 6px;
+            overflow: hidden;
         }
 
         th {
@@ -179,6 +187,7 @@
             color: white;
             padding: 10px;
             text-align: left;
+            font-weight: 600;
         }
 
         td {
@@ -209,6 +218,7 @@
             font-weight: bold;
             padding: 3px 8px;
             border-radius: 4px;
+            display: inline-block;
         }
 
         .etat.enCours {
